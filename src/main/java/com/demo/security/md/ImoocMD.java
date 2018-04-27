@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
  **/
 public class ImoocMD {
 
-    private static String src = "T am a javaer.";
+    private static String src = "I am a javaer.";
 
     public static void main(String [] args){
         System.out.println("---------------------------------------------");
@@ -70,7 +70,7 @@ public class ImoocMD {
     }
 
     /**
-     * 利用BC MD4加密
+     * 利用Bouncy Castle MD4加密
      * @param plaintext 明文
      * @return 密文
      */
@@ -87,7 +87,7 @@ public class ImoocMD {
     }
 
     /**
-     * 利用BC MD5加密
+     * 利用Bouncy Castle MD5加密
      * @param plaintext 明文
      * @return 密文
      */
