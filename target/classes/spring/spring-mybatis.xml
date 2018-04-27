@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+>
+
+    <!-- 自动扫描 -->
+    <context:component-scan base-package="com.demo" />
+
+    <!-- 引入配置文件 -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:jdbc.properties" />
+    </bean>
+
+    <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"-->
+          <!--destroy-method="close">-->
+        <!--<property name="driverClassName" value="${db.driver}" />-->
+        <!--<property name="url" value="${db.url}" />-->
+        <!--<property name="username" value="${db.username}" />-->
+        <!--<property name="password" value="${db.password}" />-->
+        <!--&lt;!&ndash; 初始化连接大小 &ndash;&gt;-->
+        <!--<property name="initialSize" value="${db.initialSize}"></property>-->
+        <!--&lt;!&ndash; 连接池最大数量 &ndash;&gt;-->
+        <!--<property name="maxActive" value="${db.maxActive}"></property>-->
+        <!--&lt;!&ndash; 连接池最大空闲 &ndash;&gt;-->
+        <!--<property name="maxIdle" value="${db.maxIdle}"></property>-->
+        <!--&lt;!&ndash; 连接池最小空闲 &ndash;&gt;-->
+        <!--<property name="minIdle" value="${db.minIdle}"></property>-->
+        <!--&lt;!&ndash; 获取连接最大等待时间 &ndash;&gt;-->
+        <!--<property name="maxWait" value="${db.maxWait}"></property>-->
+        <!--&lt;!&ndash;#给出一条简单的sql语句进行验证 &ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="validationQuery" value="select getdate()" />&ndash;&gt;-->
+        <!--<property name="defaultAutoCommit" value="${db.defaultAutoCommit}"/>-->
+        <!--&lt;!&ndash; 回收被遗弃的（一般是忘了释放的）数据库连接到连接池中 &ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="removeAbandoned" value="true" />&ndash;&gt;-->
+        <!--&lt;!&ndash; 数据库连接过多长时间不用将被视为被遗弃而收回连接池中 &ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="removeAbandonedTimeout" value="120" />&ndash;&gt;-->
+        <!--&lt;!&ndash; #连接的超时时间，默认为半小时。 &ndash;&gt;-->
+        <!--<property name="minEvictableIdleTimeMillis" value="${db.minEvictableIdleTimeMillis}"/>-->
+
+        <!--&lt;!&ndash;# 失效检查线程运行时间间隔，要小于MySQL默认&ndash;&gt;-->
+        <!--<property name="timeBetweenEvictionRunsMillis" value="40000"/>-->
+        <!--&lt;!&ndash;# 检查连接是否有效&ndash;&gt;-->
+        <!--<property name="testWhileIdle" value="true"/>-->
+        <!--&lt;!&ndash;# 检查连接有效性的SQL语句&ndash;&gt;-->
+        <!--<property name="validationQuery" value="SELECT 1 FROM dual"/>-->
+
+    <!--</bean>-->
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!--配置连接池属性-->
+        <property name="driverClass" value="${db.driver}" />
+
+        <!-- 基本属性 url、user、password -->
+        <property name="jdbcUrl" value="${db.url}" />
+        <property name="user" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+
+        <!--c3p0私有属性-->
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
+        <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
+        <!--关闭连接后不自动commit-->
+        <property name="autoCommitOnClose" value="${c3p0.autoCommitOnClose}"/>
+
+        <!--获取连接超时时间-->
+        <property name="checkoutTimeout" value="${c3p0.checkoutTimeout}"/>
+        <!--当获取连接失败重试次数-->
+        <property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}"/>
+    </bean>
+
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 自动扫描mapping.xml文件 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+    </bean>
+
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.demo.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>
+
+    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 事务注解驱动标注@Transaction的类和方法具有事务性-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--<mvc:annotation-driven/>-->
+
+
+</beans>
