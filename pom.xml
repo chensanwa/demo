@@ -296,6 +296,14 @@
       <version>1.5.9.RELEASE</version>
     </dependency>
 
+
+    <!--Bouncy Caslte Provider-->
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk16</artifactId>
+      <version>1.45</version>
+    </dependency>
+
   </dependencies>
 
   <build>

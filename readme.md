@@ -14,13 +14,15 @@
 
 #### 一、加密算法
 
-1）[基于JDK、BC、CC的MD系列加密（MD2、MD4、MD5）](https://github.com/chensanwa/demo/blob/master/src/main/java/com/demo/security/md/ImoocMD.java)
+1）[基于JDK、BouncyCastle、CommonsCodec的MD系列加密（MD2、MD4、MD5）](https://github.com/chensanwa/demo/blob/master/src/main/java/com/demo/security/md/ImoocMD.java)
 
 2）[SHA系列加密](https://github.com/chensanwa/demo/blob/master/src/main/java/com/demo/security/sha/ImoocSHA.java)
 
 3）[HMAC消息认证码加密](https://github.com/chensanwa/demo/blob/master/src/main/java/com/demo/security/hmac/ImoocHmac.java)
 
-4）学习资料：[Java实现消息摘要算法加密 - 慕课网](https://www.imooc.com/learn/286)
+4)[基于JDK、BouncyCastle、CommonsCodec的Base64加密与解密](https://github.com/chensanwa/demo/blob/master/src/main/java/com/demo/security/base64/ImoocBase64)
+
+学习资料：[Java实现消息摘要算法加密 - 慕课网](https://www.imooc.com/learn/286)
 
 
 
