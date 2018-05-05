@@ -1,4 +1,4 @@
-package com.demo.security.md;
+package com.security.md;
 
 import net.sourceforge.jtds.util.MD4Digest;
 import net.sourceforge.jtds.util.MD5Digest;

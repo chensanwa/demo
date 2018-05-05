@@ -1,4 +1,4 @@
-package com.demo.security.sha;
+package com.security.sha;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;

@@ -1,4 +1,4 @@
-package com.demo.security.base64;
+package com.security.base64;
 
 import org.codehaus.plexus.util.Base64;
 import sun.misc.BASE64Decoder;

@@ -1,4 +1,4 @@
-package com.demo.security.hmac;
+package com.security.hmac;
 
 import org.apache.commons.codec.binary.Hex;
 

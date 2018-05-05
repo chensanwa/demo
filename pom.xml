@@ -304,6 +304,26 @@
       <version>1.45</version>
     </dependency>
 
+      <!--Redis依赖-->
+    <!--Jedis 用于操作Redis-->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.9.0</version>
+      <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>commons-pool</groupId>-->
+      <!--<artifactId>commons-pool</artifactId>-->
+        <!--<version>1.5.4</version>-->
+    <!--</dependency>-->
+
   </dependencies>
 
   <build>
